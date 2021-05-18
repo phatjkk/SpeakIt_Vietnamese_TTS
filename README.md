@@ -1,11 +1,11 @@
 # SpeakIt_Vietnamese_TTS
 Vietnamese Text-to-Speech on Windows Project
 
-Previous Release(v2.0.8)
+# Previous Release(v2.0.8)
 
 ![ttsScreenshot 2021-04-30 113502](https://user-images.githubusercontent.com/48487157/116680887-6fe05380-a9d6-11eb-9776-bd7b812c5ecf.png)
 
-New Release(v2.0.9)
+# New Release(v2.0.9)
 
 ![Screenshot 2021-05-18 231837](https://user-images.githubusercontent.com/48487157/118687595-673da900-b82f-11eb-84f4-a85fa1075ac1.png)
 
