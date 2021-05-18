@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpeakIt_"
         mc:Ignorable="d"
-        Title="SpeakIt!" Height="303.692" Width="563" WindowStartupLocation="CenterScreen" Icon="icons8-year-of-dragon-100.png" Background="#FF0C1014" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None" LostTouchCapture="Grid_MouseLeftButtonDown">
+        Title="SpeakIt!" Height="348.092" Width="563" WindowStartupLocation="CenterScreen" Icon="icons8-year-of-dragon-100.png" Background="#FF0C1014" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None" LostTouchCapture="Grid_MouseLeftButtonDown">
     <Grid x:Name="_back">
-        <Button x:Name="_run" Content="Đọc" HorizontalAlignment="Left" Height="24" Margin="479,271,0,0" VerticalAlignment="Top" Width="66" Click="_run_Click" Background="#FF007ACC" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="12" BorderBrush="#FF007ACC"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button x:Name="_run" Content="Đọc" HorizontalAlignment="Left" Height="24" Margin="408,271,0,0" VerticalAlignment="Top" Width="137" Click="_run_Click" Background="#FF007ACC" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="12" BorderBrush="#FF007ACC"/>
         <Label Content="Voice :" HorizontalAlignment="Left" Margin="10,268,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
         <ComboBox x:Name="_nguoidoc" HorizontalAlignment="Left" Margin="57,268,0,0" VerticalAlignment="Top" Width="152" Foreground="White" FontFamily="Segoe UI Semibold">
             <ComboBoxItem Content="Nữ miền Bắc" HorizontalAlignment="Left" Width="118"/>
@@ -26,9 +29,9 @@
             <ComboBoxItem Content="Rất nhanh(1.2)" HorizontalAlignment="Left" Width="118"/>
             <!--<ComboBoxItem Content="Cực kì nhanh(3)" HorizontalAlignment="Left" Width="118"/>-->
         </ComboBox>
-        <Button x:Name="_stop" Content="Dừng" HorizontalAlignment="Left" Height="24" Margin="408,271,0,0" VerticalAlignment="Top" Width="66" Click="_stop_Click" Foreground="White" Background="#FFC0392B" FontSize="12" FontFamily="Segoe UI Semibold" BorderBrush="#FFC0392B" />
+        <Button x:Name="_stop" Content="Dừng" HorizontalAlignment="Left" Height="24" Margin="408,324,0,0" VerticalAlignment="Top" Width="137" Click="_stop_Click" Foreground="White" Background="#FFC0392B" FontSize="12" FontFamily="Segoe UI Semibold" BorderBrush="#FFC0392B" />
 
-        <TextBox Margin="8,39,0.2,42" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" x:Name="_text" Foreground="White" FontFamily="Segoe UI Semibold" Text="Nhập văn bản ở đây." BorderBrush="#FFFAFAFA">
+        <TextBox Margin="8,39,0.2,82" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" x:Name="_text" Foreground="White" FontFamily="Segoe UI Semibold" Text="Nhập văn bản ở đây." BorderBrush="#FFFAFAFA">
             <TextBox.CaretBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF64B3F4"/>
@@ -49,6 +52,11 @@
         <Button x:Name="_close" ToolTip="Close" Content="" HorizontalAlignment="Left" Height="14" Margin="538,6,0,0" VerticalAlignment="Top" Width="15" Background="#FFE74C3C" BorderBrush="#FFE74C3C" Click="Button_Click"/>
         <Button x:Name="_minimize" ToolTip="Minimize" Content="" HorizontalAlignment="Left" Height="14" Margin="518,6,0,0" VerticalAlignment="Top" Width="15" Background="#FFF1C40F" BorderBrush="#FFF1C40F" Click="_minimize_Click"/>
         <Button x:Name="_info" ToolTip="Buy me a coffee :D" Content="" HorizontalAlignment="Left" Height="14" Margin="500,6,0,0" VerticalAlignment="Top" Width="14" Background="#FF2ECC71" BorderBrush="#FF2ECC71" Click="_info_Click"/>
+        <ProgressBar x:Name="_process" Maximum="100" Minimum="0" HorizontalAlignment="Left" Height="19" Margin="65,300,0,0" VerticalAlignment="Top" Width="325"/>
+        <Label Content="Process :" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
+        <Button x:Name="_download" Content="Download" HorizontalAlignment="Left" Height="24" Margin="408,298,0,0" VerticalAlignment="Top" Width="137" FontSize="12" Click="_download_Click"/>
+        <Label x:Name="_tientring" Content="Chưa khởi động." HorizontalAlignment="Left" Margin="65,321,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold" Width="325"/>
+        <Label Content="Status :" HorizontalAlignment="Left" Margin="8,321,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
 
     </Grid>
 </Window>

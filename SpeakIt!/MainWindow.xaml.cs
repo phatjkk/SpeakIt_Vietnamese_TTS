@@ -34,7 +34,7 @@ namespace SpeakIt_
         string[] arrGiong = { "Nữ miền Nam","Nữ miền Bắc", "Nam miền Nam", "Nam miền Bắc" };
         int[] arrGiongmini = {1, 2, 3,4 };
         int filexong = -1;
-        Thread ThreadXuLy;
+        Thread ThreadBackround;
         Thread DocThread;
         Process ffmpeg;
         XuLyAmThanh MainXuLy;
@@ -54,10 +54,15 @@ namespace SpeakIt_
         private void _stop_Click(object sender, RoutedEventArgs e)
         {
             MainXuLy.StopRead();
+            MainXuLy.StopDown();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (ThreadBackround!=null)
+            {
+                ThreadBackround.Abort();
+            }
             System.Environment.Exit(1);
         }
 
@@ -87,6 +92,30 @@ namespace SpeakIt_
             return FinalString;
         }
 
+        private void _download_Click(object sender, RoutedEventArgs e)
+        {
+            string text = _text.Text;
+            int gender = arrGiongmini[Array.IndexOf(arrGiong, _nguoidoc.Text)];
+            string speed = StringBetween(_tocdo.Text, "(", ")");
+            MainXuLy = new XuLyAmThanh(text, gender, speed);
+            MainXuLy.mainDown();
+            ThreadBackround = new Thread(() => Backround());
+            ThreadBackround.IsBackground = true;
+            ThreadBackround.Start();
+
+        }
+        private void Backround()
+        {
+            while (true)
+            {
+                this.Dispatcher.Invoke(() => {
+                    _tientring.Content = MainXuLy.getProcessMes();
+                    _process.Value = MainXuLy.getProcessNow();
+                });
+                
+                Thread.Sleep(2000);
+            }
+        }
         //private void clear()
         //{
         //    System.IO.DirectoryInfo di = new DirectoryInfo("audio");
@@ -101,94 +130,70 @@ namespace SpeakIt_
         //    }
         //    Thread.Sleep(1000);
         //}
-    //    private void DownFileM3U8toMP3(string url, string saveName = "audio.mp3")
-    //    {
-    //        string cml = @" -i """ + url + @""" -ab 256k """ + saveName + @"""";
-    //        Console.WriteLine(cml);
-    //        Process ffmpeg = new Process
-    //        {
-    //            StartInfo = {
-    //    FileName = path+"\\ffmpeg.exe",
-    //    Arguments = cml,
-    //    UseShellExecute = false,
-    //    RedirectStandardOutput = true,
-    //    RedirectStandardError = true,
-    //    CreateNoWindow = true,
-    //    WorkingDirectory = path+"\\audio"
-    //}
-    //        };
-
-    //        ffmpeg.EnableRaisingEvents = true;
-    //        ffmpeg.OutputDataReceived += (s, e) => Debug.WriteLine(e.Data);
-    //        ffmpeg.ErrorDataReceived += (s, e) => Debug.WriteLine($@"Error: {e.Data}");
-    //        ffmpeg.Start();
-    //        ffmpeg.BeginOutputReadLine();
-    //        ffmpeg.BeginErrorReadLine();
-    //        ffmpeg.WaitForExit();
-    //    }
 
 
 
-    //    private void DownFileByUrl(string url, string filename)
-    //    {
 
-    //            while (true)
-    //            {
-    //                try
-    //                {
-    //                    using (var client = new WebClient())
-    //                    {
-    //                        client.DownloadFile(url, filename);
-    //                        break;
-    //                    }
-    //                }
-    //                catch { }
-    //            }
-            
-    //    }
+        //    private void DownFileByUrl(string url, string filename)
+        //    {
 
-    //    private void PlayMp3FromUrl(string url)
-    //    {
+        //            while (true)
+        //            {
+        //                try
+        //                {
+        //                    using (var client = new WebClient())
+        //                    {
+        //                        client.DownloadFile(url, filename);
+        //                        break;
+        //                    }
+        //                }
+        //                catch { }
+        //            }
 
-    //            using (WaveStream blockAlignedStream =
-    //                new BlockAlignReductionStream(
-    //                    WaveFormatConversionStream.CreatePcmStream(
-    //                        new WaveFileReader(url))))
-    //            {
-    //                using (WaveOut waveOut = new WaveOut(WaveCallbackInfo.FunctionCallback()))
-    //                {
-    //                    waveOut.Init(blockAlignedStream);
-    //                    waveOut.Play();
-    //                    while (waveOut.PlaybackState == PlaybackState.Playing)
-    //                    {
-    //                        System.Threading.Thread.Sleep(100);
-    //                    }
-    //                }
-    //            }
-    //    }
+        //    }
 
-   
-    //    private static string Execute(string exePath, string parameters)
-    //    {
-    //        string result = String.Empty;
+        //    private void PlayMp3FromUrl(string url)
+        //    {
 
-    //        using (Process p = new Process())
-    //        {
-    //            p.StartInfo.UseShellExecute = false;
-    //            p.StartInfo.CreateNoWindow = true;
-    //            p.StartInfo.RedirectStandardOutput = true;
-    //            p.StartInfo.FileName = exePath;
-    //            p.StartInfo.Arguments = parameters;
-    //            p.Start();
-    //            p.WaitForExit();
+        //            using (WaveStream blockAlignedStream =
+        //                new BlockAlignReductionStream(
+        //                    WaveFormatConversionStream.CreatePcmStream(
+        //                        new WaveFileReader(url))))
+        //            {
+        //                using (WaveOut waveOut = new WaveOut(WaveCallbackInfo.FunctionCallback()))
+        //                {
+        //                    waveOut.Init(blockAlignedStream);
+        //                    waveOut.Play();
+        //                    while (waveOut.PlaybackState == PlaybackState.Playing)
+        //                    {
+        //                        System.Threading.Thread.Sleep(100);
+        //                    }
+        //                }
+        //            }
+        //    }
 
-    //            result = p.StandardOutput.ReadToEnd();
-    //        }
 
-    //        return result;
-    //    }
- 
-        
+        //    private static string Execute(string exePath, string parameters)
+        //    {
+        //        string result = String.Empty;
+
+        //        using (Process p = new Process())
+        //        {
+        //            p.StartInfo.UseShellExecute = false;
+        //            p.StartInfo.CreateNoWindow = true;
+        //            p.StartInfo.RedirectStandardOutput = true;
+        //            p.StartInfo.FileName = exePath;
+        //            p.StartInfo.Arguments = parameters;
+        //            p.Start();
+        //            p.WaitForExit();
+
+        //            result = p.StandardOutput.ReadToEnd();
+        //        }
+
+        //        return result;
+        //    }
+
+
     }
 }
 public class XuLyAmThanh
@@ -198,8 +203,11 @@ public class XuLyAmThanh
     private int gender = 0;
     private string speed = "1.0";
     private string text = "";
-    private Process ffplay;
-    private Thread ReadingThread;
+    private string processMes = "";
+    private int processNow = 0;
+    private int processFull = 0;
+    private Process ffplay, ffmpeg;
+    private Thread ReadingThread, DownloadingThread;
     string path = Directory.GetCurrentDirectory();
     public XuLyAmThanh(string _text, int _gender = 1, string _speed = "")
     {
@@ -211,6 +219,63 @@ public class XuLyAmThanh
     {
         ReadingThread = new Thread(() => Read());
         ReadingThread.Start();
+    }
+    public void mainDown()
+    {
+
+        DownloadingThread = new Thread(() => Down());
+        DownloadingThread.Start();
+    }
+    public void Down()
+    {
+        this.processMes = "Đang khởi động...";
+        DeleteAllFile(path + "\\audio");
+        this.processNow = 0;
+        if (text.Length > 2000)
+        {
+            linksOfM3u8.Clear();
+            Thread getLink = new Thread(() => GetDataM3u8());
+            getLink.Start();
+            while (!(linksOfM3u8.Count > 0))
+            {
+                Thread.Sleep(1000);
+            }
+            int maxdown = outputTexts.Count;
+            for (int i = 0; i < maxdown; i++)
+            {
+                this.processNow = (i + 1) * 100/ (maxdown + 1);
+                this.processMes = "Đang tải file -> " + "Audio " + i + ".mp3...";
+                Thread.Sleep(1000);
+                DownFileM3U8toMP3(linksOfM3u8.ElementAt(i),"Audio "+i+".mp3");
+                this.processMes = "Đã tải xong file -> " + "Audio " + i + ".mp3";
+                
+            }
+            this.processMes = "Done";
+            this.processNow = 100;
+            MessageBox.Show("Đã tải xong\nVui lòng check thư mục audio");
+        }
+        else
+        {
+            this.processMes = "Đang tải file -> Audio.mp3...";
+            DownFileM3U8toMP3(getTTS_URL(text), "Audio.mp3");
+            this.processNow = 100;
+            this.processMes = "Đã tải xong file -> Audio.mp3";
+            MessageBox.Show("Đã tải xong\nVui lòng check thư mục audio");
+        }
+    }
+    private void DeleteAllFile(string folderPath)
+    {
+        System.IO.DirectoryInfo di = new DirectoryInfo(folderPath);
+
+        foreach (FileInfo file in di.GetFiles())
+        {
+            file.Delete();
+        }
+        foreach (DirectoryInfo dir in di.GetDirectories())
+        {
+            dir.Delete(true);
+        }
+
     }
     public void Read()
     {
@@ -242,6 +307,31 @@ public class XuLyAmThanh
         {
             linksOfM3u8.Add(getTTS_URL(itemText));
         }
+    }
+    public void StopDown()
+    {
+        try
+        {
+            if (ffmpeg != null)
+            {
+                ffmpeg.Kill();
+            }
+
+        }
+        catch { }
+        try
+        {
+            if (DownloadingThread != null)
+            {
+                DownloadingThread.Abort();
+            }
+
+
+        }
+        catch { }
+        this.processNow = 100;
+        this.processMes = "Đã dừng tiến trình!";
+        MessageBox.Show("Đã dừng tiến trình!");
     }
     public void StopRead()
     {
@@ -337,13 +427,39 @@ public class XuLyAmThanh
         }
         
     }
-    int getGender()
+    private void DownFileM3U8toMP3(string url, string saveName = "audio.mp3")
     {
-        return this.gender;
+        string cml = @" -i """ + url + @""" -ab 256k """ + saveName + @"""";
+        Console.WriteLine(cml);
+        ffmpeg = new Process
+        {
+            StartInfo = {
+            FileName = path+"\\ffmpeg.exe",
+            Arguments = cml,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true,
+            WorkingDirectory = path+"\\audio"
+        }
+        };
+
+        ffmpeg.EnableRaisingEvents = true;
+        ffmpeg.OutputDataReceived += (s, e) => Debug.WriteLine(e.Data);
+        ffmpeg.ErrorDataReceived += (s, e) => Debug.WriteLine($@"Error: {e.Data}");
+        ffmpeg.Start();
+        ffmpeg.BeginOutputReadLine();
+        ffmpeg.BeginErrorReadLine();
+        ffmpeg.WaitForExit();
     }
-    void setGender(int _gender)
+
+    public int getProcessNow()
     {
-        this.gender = _gender;
+        return this.processNow;
+    }
+    public string getProcessMes()
+    {
+        return processMes;
     }
     string getText()
     {
@@ -361,6 +477,7 @@ public class XuLyAmThanh
     {
         this.speed = _speed;
     }
+    
     public List<string> SplitStringEveryNth(string input, int chunkSize)
     {
         var output = new List<string>();

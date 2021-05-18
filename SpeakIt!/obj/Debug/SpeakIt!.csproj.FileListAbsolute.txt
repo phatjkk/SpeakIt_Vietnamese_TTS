@@ -98,3 +98,43 @@ C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt!\SpeakIt!\obj\Debug\SpeakIt!.csproj.
 C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt!\SpeakIt!\obj\Debug\SpeakIt!.csproj.CopyComplete
 C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt!\SpeakIt!\obj\Debug\SpeakIt!.exe
 C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt!\SpeakIt!\obj\Debug\SpeakIt!.pdb
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\SpeakIt!.exe.config
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\SpeakIt!.exe
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\SpeakIt!.pdb
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\MaterialDesignColors.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\Microsoft.Win32.Registry.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\NAudio.Asio.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\NAudio.Core.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\NAudio.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\NAudio.Midi.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\NAudio.Wasapi.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\NAudio.WinForms.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\NAudio.WinMM.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\RestSharp.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\System.Security.AccessControl.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\Microsoft.Win32.Registry.xml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\NAudio.xml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\RestSharp.xml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\System.Security.AccessControl.xml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!.csprojAssemblyReference.cache
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\MainWindow.g.cs
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\App.g.cs
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!_MarkupCompile.cache
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!_MarkupCompile.lref
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\App.baml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\MainWindow.baml
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!.g.resources
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt_.Properties.Resources.resources
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!.csproj.GenerateResource.cache
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!.csproj.CoreCompileInputs.cache
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!.csproj.CopyComplete
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!.exe
+C:\Users\Thanh Phat\Desktop\Desktop\SpeakIt! + download\SpeakIt!\obj\Debug\SpeakIt!.pdb
