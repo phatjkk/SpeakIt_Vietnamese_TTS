@@ -200,6 +200,8 @@ public class XuLyAmThanh
 {
     List<string> linksOfM3u8 = new List<string>();
     List<string> outputTexts = new List<string>();
+    List<string> final_input_cutted = new List<string>();
+    string[] outputTexts2;
     private int gender = 0;
     private string speed = "1.0";
     private string text = "";
@@ -233,19 +235,20 @@ public class XuLyAmThanh
         this.processNow = 0;
         if (text.Length > 2000)
         {
+
             linksOfM3u8.Clear();
             Thread getLink = new Thread(() => GetDataM3u8());
             getLink.Start();
             while (!(linksOfM3u8.Count > 0))
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
             }
             int maxdown = outputTexts.Count;
             for (int i = 0; i < maxdown; i++)
             {
                 this.processNow = (i + 1) * 100/ (maxdown + 1);
                 this.processMes = "Đang tải file -> " + "Audio " + i + ".mp3...";
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 DownFileM3U8toMP3(linksOfM3u8.ElementAt(i),"Audio "+i+".mp3");
                 this.processMes = "Đã tải xong file -> " + "Audio " + i + ".mp3";
                 
@@ -302,10 +305,28 @@ public class XuLyAmThanh
     }
     public void GetDataM3u8()
     {
-        outputTexts = SplitStringEveryNth(this.text, 2000);
-        foreach (string itemText in outputTexts)
+        int index = 0;
+        outputTexts = text.Split(new[] { ". " }, StringSplitOptions.None).OfType<string>().ToList();
+        string doanDuoi2000 = "";
+        while (index < outputTexts.Count)
+        {
+            if ((doanDuoi2000.Length + outputTexts.ElementAt(index).Length) <= 2000)
+            {
+                doanDuoi2000 += outputTexts.ElementAt(index);
+                index += 1;
+            }
+            else
+            {
+                final_input_cutted.Add(doanDuoi2000);
+                doanDuoi2000 = "";
+            }
+        }
+        final_input_cutted.Add(doanDuoi2000);
+        outputTexts = final_input_cutted;
+        foreach (string itemText in final_input_cutted)
         {
             linksOfM3u8.Add(getTTS_URL(itemText));
+            Thread.Sleep(2000);
         }
     }
     public void StopDown()
