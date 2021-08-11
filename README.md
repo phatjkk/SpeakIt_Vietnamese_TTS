@@ -3,6 +3,12 @@ Vietnamese Text-to-Speech on Windows Project
 
 (Lưu ý: Nếu bạn nhấn đọc nhưng phần mềm không chạy có thể là do trình diệt virus của bạn đang bật. Bạn nên tắt nó đi rồi cài lại để tránh trình diệt virus xoá những file không cần thiết. Do có một file exe mình build từ python nên sẽ dễ bị nhận nhầm là virus vì file này phụ trách tự tải audio về nhưng không phải, bạn có thể check mã nguồn đính kèm.)
 
+#Video hướng dẫn:
+
+https://www.youtube.com/watch?v=DquWRpjvNm0
+
+https://www.facebook.com/groups/j2team.community/posts/1549746548690793
+
 # Previous Release(v2.0.8)
 
 ![ttsScreenshot 2021-04-30 113502](https://user-images.githubusercontent.com/48487157/116680887-6fe05380-a9d6-11eb-9776-bd7b812c5ecf.png)
