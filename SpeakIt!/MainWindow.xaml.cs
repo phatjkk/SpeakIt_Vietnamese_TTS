@@ -35,14 +35,35 @@ namespace SpeakIt_
         int[] arrGiongmini = {1, 2, 3,4 };
         int filexong = -1;
         Thread ThreadBackround;
-        Thread DocThread;
+        Thread DocThread, ThreadUpdateUI;
         Process ffmpeg;
         XuLyAmThanh MainXuLy;
         public MainWindow()
         {
             InitializeComponent();
+            ThreadUpdateUI = new Thread(() => UpdateUI());
+            ThreadUpdateUI.IsBackground = true;
+            ThreadUpdateUI.Start();
         }
 
+        private void UpdateUI()
+        {
+            string textPre = "";
+            while (true)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+
+                    if (_text.Text != textPre)
+                    {
+                        _kytu.Content = "Ký tự đã nhập: " + _text.Text.Length.ToString();
+                        textPre = _text.Text;
+                        
+                    }
+                });
+                Thread.Sleep(200);
+            }
+        }
         private void _run_Click(object sender, RoutedEventArgs e)
         {
             string text = _text.Text;
@@ -50,6 +71,9 @@ namespace SpeakIt_
             string speed = StringBetween(_tocdo.Text, "(", ")");
             MainXuLy = new XuLyAmThanh(text, gender, speed);
             MainXuLy.mainRun();
+            ThreadBackround = new Thread(() => Backround());
+            ThreadBackround.IsBackground = true;
+            ThreadBackround.Start();
         }
         private void _stop_Click(object sender, RoutedEventArgs e)
         {
@@ -111,6 +135,7 @@ namespace SpeakIt_
                 this.Dispatcher.Invoke(() => {
                     _tientring.Content = MainXuLy.getProcessMes();
                     _process.Value = MainXuLy.getProcessNow();
+               
                 });
                 
                 Thread.Sleep(2000);
@@ -231,8 +256,9 @@ public class XuLyAmThanh
     public void Down()
     {
         this.processMes = "Đang khởi động...";
-        DeleteAllFile(path + "\\audio");
+        //DeleteAllFile(path + "\\audio");
         this.processNow = 0;
+        string fname;
         if (text.Length > 2000)
         {
 
@@ -246,11 +272,12 @@ public class XuLyAmThanh
             int maxdown = outputTexts.Count;
             for (int i = 0; i < maxdown; i++)
             {
+                fname =  DateTime.Now.ToString("yyMMddHHmmss");
                 this.processNow = (i + 1) * 100/ (maxdown + 1);
-                this.processMes = "Đang tải file -> " + "Audio " + i + ".mp3...";
+                this.processMes = "Đang tải file -> " + fname + ".mp3...";
                 Thread.Sleep(2000);
-                DownFileM3U8toMP3(linksOfM3u8.ElementAt(i),"Audio "+i+".mp3");
-                this.processMes = "Đã tải xong file -> " + "Audio " + i + ".mp3";
+                DownFileM3U8toMP3(linksOfM3u8.ElementAt(i), fname + ".mp3");
+                this.processMes = "Đã tải xong file -> " + fname + ".mp3";
                 
             }
             this.processMes = "Done";
@@ -259,10 +286,11 @@ public class XuLyAmThanh
         }
         else
         {
-            this.processMes = "Đang tải file -> Audio.mp3...";
-            DownFileM3U8toMP3(getTTS_URL(text), "Audio.mp3");
+            fname = DateTime.Now.ToString("yyMMddHHmmss");
+            this.processMes = "Đang tải file -> "+ fname + ".mp3...";
+            DownFileM3U8toMP3(getTTS_URL(text), fname + ".mp3");
             this.processNow = 100;
-            this.processMes = "Đã tải xong file -> Audio.mp3";
+            this.processMes = "Đã tải xong file -> "+ fname + ".mp3";
             MessageBox.Show("Đã tải xong\nVui lòng check thư mục audio");
         }
     }
@@ -282,9 +310,11 @@ public class XuLyAmThanh
     }
     public void Read()
     {
+        this.processMes = "Đang khởi động...";
         if (text.Length > 2000)
         {
             linksOfM3u8.Clear();
+
             Thread getLink = new Thread(() => GetDataM3u8());
             getLink.Start();
             while (!(linksOfM3u8.Count > 0))
@@ -293,36 +323,52 @@ public class XuLyAmThanh
             }
             for (int i = 0; i < outputTexts.Count; i++)
             {
-                
+                this.processMes = "Đang chạy trình phát...";
                 PlayM3U8FromUrl(linksOfM3u8.ElementAt(i));
             }
 
         }
         else
         {
+            this.processMes = "Đang chạy trình phát...";
             PlayM3U8FromUrl(getTTS_URL(text));
         }
+        this.processMes = "Đã xong!";
     }
     public void GetDataM3u8()
     {
         int index = 0;
-        outputTexts = text.Split(new[] { ". " }, StringSplitOptions.None).OfType<string>().ToList();
+        while (text.Contains(".."))
+        {
+            text = text.Replace("..", ".");
+        }
+        outputTexts = text.Split(new[] { "." }, StringSplitOptions.None).OfType<string>().ToList();
+
+
+        string doanDuoi2000rollback = "";
         string doanDuoi2000 = "";
         while (index < outputTexts.Count)
         {
-            if ((doanDuoi2000.Length + outputTexts.ElementAt(index).Length) <= 2000)
+            if ((doanDuoi2000.Length + outputTexts.ElementAt(index).Length) < 2000)
             {
-                doanDuoi2000 += outputTexts.ElementAt(index);
+                
+                doanDuoi2000 += outputTexts.ElementAt(index) + ".";
                 index += 1;
             }
-            else
+            else if ((doanDuoi2000.Length + outputTexts.ElementAt(index).Length) > 2000)
             {
                 final_input_cutted.Add(doanDuoi2000);
                 doanDuoi2000 = "";
             }
         }
-        final_input_cutted.Add(doanDuoi2000);
-        outputTexts = final_input_cutted;
+        if (doanDuoi2000.Length > 0)
+        {
+            final_input_cutted.Add(doanDuoi2000);
+        }
+        linksOfM3u8.Clear();
+        outputTexts.Clear();
+        outputTexts = final_input_cutted.ToList();
+
         foreach (string itemText in final_input_cutted)
         {
             linksOfM3u8.Add(getTTS_URL(itemText));
