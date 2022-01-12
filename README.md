@@ -5,7 +5,7 @@ Là một phần mềm sử dụng ZaloAPI để chuyển văn bản sang giọn
 
 # Hướng dẫn sử dụng
 
-Đầu tiên để sử dụng được, bạn cần có ZaloAI Key, mà để có ZaloAPI key bạn cần chọn mua những gói mà server Zalo hỗ trợ
+Đầu tiên để sử dụng được, bạn cần có ZaloAI Key, mà để có ZaloAPI key bạn cần chọn mua những gói mà server Zalo hỗ trợ.
 
 Xem thêm tại:
 
@@ -13,9 +13,9 @@ https://zalo.ai/docs/api/purchase-a-plan
 
 https://zalo.ai/pricing
 
-Nếu nhu cầu sử dụng không nhiều, bạn có thể ghép chung với những người bạn khác để sử dụng để tiết kiệm chi phí
+Nếu nhu cầu sử dụng không nhiều, bạn có thể ghép chung với những người bạn khác để sử dụng để tiết kiệm chi phí.
 
-Lưu ý: KHÔNG lấy key bên trong phần mềm để sử dụng vì đó là key mẫu để test và đã đặt đến ngưỡng giới hạn.
+Lưu ý: KHÔNG lấy key bên trong phần mềm để sử dụng vì đó là key mẫu để test và đã đạt đến ngưỡng giới hạn.
 Vui lòng tạo key bằng cách đăng nhập tài khoản riêng sử dụng tại:
 
 https://zalo.ai/
