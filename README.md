@@ -1,7 +1,42 @@
 # SpeakIt_Vietnamese_TTS (DragonSpeak)
 Vietnamese Text-to-Speech on Windows Project
 
-(Lưu ý: Nếu bạn nhấn đọc nhưng phần mềm không chạy có thể là do trình diệt virus của bạn đang bật. Bạn nên tắt nó đi rồi cài lại để tránh trình diệt virus xoá những file không cần thiết. Do có một file exe mình build từ python nên sẽ dễ bị nhận nhầm là virus vì file này phụ trách tự tải audio về nhưng không phải, bạn có thể check mã nguồn đính kèm.)
+Là một phần mềm sử dụng ZaloAPI để chuyển văn bản sang giọng nói Tiếng Việt.
+
+#Hướng dẫn sử dụng
+
+Đầu tiên để sử dụng được, bạn cần có ZaloAI Key, mà để có ZaloAPI key bạn cần chọn mua những gói mà server Zalo hỗ trợ
+
+Xem thêm tại:
+
+https://zalo.ai/docs/api/purchase-a-plan
+
+https://zalo.ai/pricing
+
+Nếu nhu cầu sử dụng không nhiều, bạn có thể ghép chung với những người bạn khác để sử dụng để tiết kiệm chi phí
+
+Lưu ý: KHÔNG lấy key bên trong phần mềm để sử dụng vì đó là key mẫu để test và đã đặt đến ngưỡng giới hạn.
+Vui lòng tạo key bằng cách đăng nhập tài khoản riêng sử dụng tại:
+
+https://zalo.ai/
+
+Sau khi có key thì bạn chỉ cần nhập vào phần mềm và sử dụng thôi.
+
+File Download về sẽ có được tách ra theo thứ tự:
+
+VD: 1.mp3, 2.mp3, 3.mp3,....
+
+Hoặc nếu số lượng ký tự chuyển đổi < 500 thì file sẽ có dạng: output.mp3
+
+Vì phần mềm được build trên nền .NET Framework 4.7.1 nên nếu lần đầu tiên mở phần mềm lên mà có báo lỗi .NET :
+
+Tải ngay phiên bản mới nhất tại:
+
+https://dotnet.microsoft.com/en-us/download/dotnet-framework
+
+https://dotnet.microsoft.com/en-us/download
+
+Sau khi cài đặt khởi động lại máy sẽ hết lỗi.
 
 #Video hướng dẫn:
 
@@ -19,6 +54,18 @@ https://www.facebook.com/groups/j2team.community/posts/1549746548690793
 
 ![Screenshot 2021-05-18 231837](https://user-images.githubusercontent.com/48487157/118687595-673da900-b82f-11eb-84f4-a85fa1075ac1.png)
 
+# Phi lợi nhận
 
-Đây là một phần mềm mình sử dụng thư viện của ZaloAI nhưng có một chút cải tiến.
-Do API của Zalo họ chỉ cho phép đọc đoạn văn dưới 2000 kí tự nên khá khó khăn cho việc đọc sách báo nên mình đã thiết kế phần mềm tách văn bản ra từng câu một để đọc cho nên bạn có thể dùng nó với các mục đích khác nhau.
+Đây là phần mềm miễn phí, mình không nhận được bất kỳ 1 đồng nào hỗ trợ từ Zalo nên nếu thấy hay bạn có thể donate để hỗ trợ dự án bằng cách nhấn vào nút xanh lá phía góc trên bên phải phần mềm để ủng hộ mình nhé.
+
+https://github.com/phatjkk/DonateMe/blob/master/Information
+
+# Những thư viện sử dụng
+
+https://www.ffmpeg.org/
+
+http://materialdesigninxaml.net/
+
+https://restsharp.dev/
+
+
