@@ -1,1 +1,1 @@
-{"error_code":0,"error_message":"Successful.","data":{"url":"https://audiostream.lab.zalo.ai/m3u8/79bfd5c3c89121cf7880.m3u8"}}
+{"error_code":429,"data":{},"error_message":"API rate limit exceeded"}

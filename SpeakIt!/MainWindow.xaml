@@ -5,22 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpeakIt_"
         mc:Ignorable="d"
-        Title="DragonSpeak" Height="358.092" Width="563" WindowStartupLocation="CenterScreen" Icon="icons8-year-of-dragon-100.png" Background="#FF2C2C54" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None" LostTouchCapture="Grid_MouseLeftButtonDown">
-    <Grid x:Name="_back">
+        Title="DragonSpeak" Height="341.092" Width="698" WindowStartupLocation="CenterScreen" Icon="icons8-year-of-dragon-100.png" Background="#FF130F40" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None" LostTouchCapture="Grid_MouseLeftButtonDown" Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseDown="Window_MouseDown_1">
+
+    <Grid x:Name="_back" MouseLeftButtonDown="_back_MouseLeftButtonDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button x:Name="_run" Content="Đọc" HorizontalAlignment="Left" Height="24" Margin="408,271,0,0" VerticalAlignment="Top" Width="137" Click="_run_Click" Background="#FF007ACC" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="12" BorderBrush="#FF007ACC"/>
-        <Label Content="Voice :" HorizontalAlignment="Left" Margin="10,268,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
-        <ComboBox x:Name="_nguoidoc" HorizontalAlignment="Left" Margin="57,268,0,0" VerticalAlignment="Top" Width="152" Foreground="White" FontFamily="Segoe UI Semibold">
+        <Button x:Name="_run" Content="Đọc" HorizontalAlignment="Left" Height="24" Margin="489,179,0,0" VerticalAlignment="Top" Width="199" Click="_run_Click" Background="#FF007ACC" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="12" BorderBrush="#FF007ACC"/>
+        <Label Content="Giọng:" HorizontalAlignment="Left" Margin="485,108,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
+        <ComboBox x:Name="_nguoidoc" HorizontalAlignment="Left" Margin="539,108,0,0" VerticalAlignment="Top" Width="145" Foreground="White" FontFamily="Segoe UI Semibold">
             <ComboBoxItem Content="Nữ miền Bắc" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Nam miền Bắc" HorizontalAlignment="Left" Width="118"/>
             <!--<ComboBoxItem Content="Giọng nữ Trung" HorizontalAlignment="Left" Width="118"/>-->
             <ComboBoxItem Content="Nữ miền Nam" IsSelected="True" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Nam miền Nam" IsSelected="True" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
-        <Label Content="Tốc độ :" HorizontalAlignment="Left" Margin="214,268,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
-        <ComboBox x:Name="_tocdo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="270,269,0,0" Foreground="White" FontFamily="Segoe UI Semibold">
+        <Label Content="Tốc độ :" HorizontalAlignment="Left" Margin="485,140,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
+        <ComboBox x:Name="_tocdo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Margin="539,139,0,0" Foreground="White" FontFamily="Segoe UI Semibold">
             <ComboBoxItem Content="Bình thường(1.0)" IsSelected="True" HorizontalAlignment="Left" Width="118"/>
             <!--<ComboBoxItem Content="Cực kì chậm(0.8)" HorizontalAlignment="Left" Width="118"/>-->
             <ComboBoxItem Content="Rất chậm(0.8)" HorizontalAlignment="Left" Width="118"/>
@@ -29,9 +33,14 @@
             <ComboBoxItem Content="Rất nhanh(1.2)" HorizontalAlignment="Left" Width="118"/>
             <!--<ComboBoxItem Content="Cực kì nhanh(3)" HorizontalAlignment="Left" Width="118"/>-->
         </ComboBox>
-        <Button x:Name="_stop" Content="Dừng" HorizontalAlignment="Left" Height="24" Margin="408,324,0,0" VerticalAlignment="Top" Width="137" Click="_stop_Click" Foreground="White" Background="#FFC0392B" FontSize="12" FontFamily="Segoe UI Semibold" BorderBrush="#FFC0392B" />
+        <Button x:Name="_stop" Content="Dừng" HorizontalAlignment="Left" Height="24" Margin="489,232,0,0" VerticalAlignment="Top" Width="199" Click="_stop_Click" Foreground="White" Background="#FFC0392B" FontSize="12" FontFamily="Segoe UI Semibold" BorderBrush="#FFC0392B" />
 
-        <TextBox Margin="8,54,0,124" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" x:Name="_text" Foreground="White" Text="Nhập văn bản ở đây." BorderBrush="#FFFAFAFA">
+        <TextBox Margin="10,54,231,42" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" x:Name="_text" Foreground="White" Text="Nhập văn bản ở đây." BorderBrush="#FFFAFAFA" Background="#FF30336B">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </TextBox.Resources>
             <TextBox.CaretBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF64B3F4"/>
@@ -39,25 +48,19 @@
                 </LinearGradientBrush>
             </TextBox.CaretBrush>
         </TextBox>
-        <Label Content="DragonSpeak 2.1.2" HorizontalAlignment="Left" Height="31" Margin="204,10,0,0" VerticalAlignment="Top" Width="155" FontFamily="Segoe UI Black" Background="Transparent" FontSize="16">
-            <Label.Foreground>
-                <RadialGradientBrush GradientOrigin="0.5,0.5">
-                    <GradientStop Color="#FFEE6E76" Offset="0"/>
-                    <GradientStop Color="#FF12C2E9" Offset="1"/>
-                    <GradientStop Color="#FFC471ED" Offset="0.498"/>
-                </RadialGradientBrush>
-            </Label.Foreground>
-        </Label>
-        <Button x:Name="_close" ToolTip="Close" Content="" HorizontalAlignment="Left" Height="14" Margin="538,6,0,0" VerticalAlignment="Top" Width="15" Background="#FFE74C3C" BorderBrush="#FFE74C3C" Click="Button_Click"/>
-        <Button x:Name="_minimize" ToolTip="Minimize" Content="" HorizontalAlignment="Left" Height="14" Margin="518,6,0,0" VerticalAlignment="Top" Width="15" Background="#FFF1C40F" BorderBrush="#FFF1C40F" Click="_minimize_Click"/>
-        <Button x:Name="_info" ToolTip="Buy me a coffee :D" Content="" HorizontalAlignment="Left" Height="14" Margin="500,6,0,0" VerticalAlignment="Top" Width="14" Background="#FF2ECC71" BorderBrush="#FF2ECC71" Click="_info_Click"/>
-        <ProgressBar x:Name="_process" Maximum="100" Minimum="0" HorizontalAlignment="Left" Height="19" Margin="65,300,0,0" VerticalAlignment="Top" Width="325"/>
-        <Label Content="Process :" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
-        <Button x:Name="_download" Content="Download" HorizontalAlignment="Left" Height="24" Margin="408,298,0,0" VerticalAlignment="Top" Width="137" FontSize="12" Click="_download_Click"/>
-        <Label x:Name="_tientring" Content="Chưa khởi động." HorizontalAlignment="Left" Margin="65,321,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold" Width="325"/>
-        <Label Content="Status :" HorizontalAlignment="Left" Margin="8,321,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
-        <Label Content="Status :" HorizontalAlignment="Left" Margin="8,321,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
-        <Label x:Name="_kytu" Content="Ký tự đã nhập: 0" HorizontalAlignment="Left" Margin="225,239,0,0" VerticalAlignment="Top" Height="27" Foreground="White" Background="#FF444444" RenderTransformOrigin="0.796,0.519"/>
+        <Label Content="DragonSpeak 3.0" HorizontalAlignment="Left" Height="31" Margin="292,10,0,0" VerticalAlignment="Top" Width="166" FontFamily="Segoe UI Black" Background="Transparent" FontSize="18" Foreground="White"/>
+        <Button x:Name="_close" ToolTip="Close" Content="" HorizontalAlignment="Left" Height="14" Margin="659,10,0,0" VerticalAlignment="Top" Width="29" Background="#FFE74C3C" BorderBrush="#FFE74C3C" Click="Button_Click"/>
+        <Button x:Name="_minimize" ToolTip="Minimize" Content="" HorizontalAlignment="Left" Height="14" Margin="625,10,0,0" VerticalAlignment="Top" Width="29" Background="#FFF1C40F" BorderBrush="#FFF1C40F" Click="_minimize_Click"/>
+        <Button x:Name="_info" ToolTip="Buy me a coffee :D" Content="" HorizontalAlignment="Left" Height="14" Margin="591,10,0,0" VerticalAlignment="Top" Width="29" Background="#FF2ECC71" BorderBrush="#FF2ECC71" Click="_info_Click"/>
+        <ProgressBar x:Name="_process" Maximum="100" Minimum="0" HorizontalAlignment="Left" Height="27" Margin="489,304,0,0" VerticalAlignment="Top" Width="199"/>
+        <Label Content="Tiến trình :" HorizontalAlignment="Left" Margin="485,274,0,0" VerticalAlignment="Top" Height="21" Foreground="White" FontFamily="Segoe UI Semibold"/>
+        <Button x:Name="_download" Content="Download" HorizontalAlignment="Left" Height="24" Margin="489,206,0,0" VerticalAlignment="Top" Width="199" FontSize="12" Click="_download_Click"/>
+        <Label x:Name="_tientring" Content="Chưa khởi động." HorizontalAlignment="Left" Margin="84,308,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold" Width="276"/>
+        <Label Content="Trạng thái :" HorizontalAlignment="Left" Margin="10,308,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold"/>
+        <Label x:Name="_kytu" Content="Ký tự đã nhập: 0" HorizontalAlignment="Left" Margin="374,308,0,0" VerticalAlignment="Top" Height="28" Foreground="White" Background="#FF444444" RenderTransformOrigin="0.796,0.519"/>
+        <Label Content="ZaloAI API Key:" HorizontalAlignment="Left" Margin="485,54,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
+        <TextBox x:Name="_apikey" HorizontalAlignment="Left" Height="23" Margin="489,81,0,0" TextWrapping="Wrap" Text="(EMPTY)" VerticalAlignment="Top" Width="199" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="42" Margin="10,10,0,0" VerticalAlignment="Top" Width="42" Source="icons8-year-of-dragon-100.png"/>
 
     </Grid>
 </Window>

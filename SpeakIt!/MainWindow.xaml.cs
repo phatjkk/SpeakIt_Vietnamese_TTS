@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -34,16 +36,24 @@ namespace SpeakIt_
         string[] arrGiong = { "Nữ miền Nam","Nữ miền Bắc", "Nam miền Nam", "Nam miền Bắc" };
         int[] arrGiongmini = {1, 2, 3,4 };
         int filexong = -1;
+        string version = "3.0.1";
         Thread ThreadBackround;
         Thread DocThread, ThreadUpdateUI;
         Process ffmpeg;
         XuLyAmThanh MainXuLy;
+        string keylone = "";
         public MainWindow()
         {
             InitializeComponent();
             ThreadUpdateUI = new Thread(() => UpdateUI());
             ThreadUpdateUI.IsBackground = true;
             ThreadUpdateUI.Start();
+        }
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var move = sender as System.Windows.Controls.Grid;
+            var win = Window.GetWindow(move);
+            win.DragMove();
         }
 
         private void UpdateUI()
@@ -64,16 +74,53 @@ namespace SpeakIt_
                 Thread.Sleep(200);
             }
         }
+        private bool CheckKey(string key)
+        {
+            if (keylone == key)
+            {
+                return true;
+            }
+            else
+            {
+                _tientring.Content = "Đang kiểm tra API KEY";
+                Thread.Sleep(500);
+                var client = new RestClient("https://api.zalo.ai/v1/tts/synthesize");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("apikey", key);
+                request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+                var response = client.Execute(request);
+                if ((int)response.StatusCode == 401)
+                {
+                    _tientring.Content = "Chưa khởi động.";
+                    return false;
+                }
+                _tientring.Content = "Đang xử lý";
+                keylone = key;
+                return true;
+            }
+
+            
+        }
         private void _run_Click(object sender, RoutedEventArgs e)
         {
-            string text = _text.Text;
-            int gender = arrGiongmini[Array.IndexOf(arrGiong, _nguoidoc.Text)];
-            string speed = StringBetween(_tocdo.Text, "(", ")");
-            MainXuLy = new XuLyAmThanh(text, gender, speed);
-            MainXuLy.mainRun();
-            ThreadBackround = new Thread(() => Backround());
-            ThreadBackround.IsBackground = true;
-            ThreadBackround.Start();
+            if (CheckKey(_apikey.Text)==false)
+            {
+                MessageBox.Show("API KEY không đúng, bạn vui lòng kiểm tra lại key của mình rồi thử lại nhé!","Lỗi");
+            }
+            else
+            {
+                File.WriteAllText("APIKey.txt", _apikey.Text);
+                string text = _text.Text;
+                int gender = arrGiongmini[Array.IndexOf(arrGiong, _nguoidoc.Text)];
+                string speed = StringBetween(_tocdo.Text, "(", ")");
+                string apikey = _apikey.Text;
+                MainXuLy = new XuLyAmThanh(text, gender, speed, apikey);
+                MainXuLy.mainRun();
+                ThreadBackround = new Thread(() => Backround());
+                ThreadBackround.IsBackground = true;
+                ThreadBackround.Start();
+            }
+
         }
         private void _stop_Click(object sender, RoutedEventArgs e)
         {
@@ -118,16 +165,68 @@ namespace SpeakIt_
 
         private void _download_Click(object sender, RoutedEventArgs e)
         {
-            string text = _text.Text;
-            int gender = arrGiongmini[Array.IndexOf(arrGiong, _nguoidoc.Text)];
-            string speed = StringBetween(_tocdo.Text, "(", ")");
-            MainXuLy = new XuLyAmThanh(text, gender, speed);
-            MainXuLy.mainDown();
-            ThreadBackround = new Thread(() => Backround());
-            ThreadBackround.IsBackground = true;
-            ThreadBackround.Start();
+            if (CheckKey(_apikey.Text) == false)
+            {
+                MessageBox.Show("API KEY không đúng, bạn vui lòng kiểm tra lại key của mình rồi thử lại nhé!", "Lỗi");
+            }
+            else
+            {
+                File.WriteAllText("APIKey.txt", _apikey.Text);
+                string text = _text.Text;
+                int gender = arrGiongmini[Array.IndexOf(arrGiong, _nguoidoc.Text)];
+                string speed = StringBetween(_tocdo.Text, "(", ")");
+                string apikey = _apikey.Text;
+                MainXuLy = new XuLyAmThanh(text, gender, speed, apikey);
+                MainXuLy.mainDown();
+                ThreadBackround = new Thread(() => Backround());
+                ThreadBackround.IsBackground = true;
+                ThreadBackround.Start();
+            }
+        }
+        [DllImport("user32.dll")]
+        static extern Int32 SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+
+        [DllImport("gdi32.dll")]
+        static extern IntPtr CreateRoundRectRgn(int x1, int y1, int x2, int y2, int cx, int cy);
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+            var client = new RestClient("https://raw.githubusercontent.com/phatjkk/Tool/master/DragonSpeak.txt");
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            if (!response.Content.Contains(version)) { 
+                MessageBox.Show("Đã có phiên bản mới. Hãy cập nhật nhé!");
+                System.Diagnostics.Process.Start("https://github.com/phatjkk/SpeakIt_Vietnamese_TTS/releases");
+                System.Environment.Exit(1);
+            }
+            else
+            {
+                IntPtr hwnd = new WindowInteropHelper(this).Handle;
+                SetWindowRgn(hwnd, CreateRoundRectRgn(0, 0, 697, 358, 15, 15), true);
+                _apikey.Text = System.IO.File.ReadAllText("APIKey.txt");
+            }
+            
+        }
+
+        private void _back_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
 
         }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Window_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+
+                if (e.ChangedButton == MouseButton.Left)
+                    this.DragMove();
+        }
+
         private void Backround()
         {
             while (true)
@@ -228,19 +327,22 @@ public class XuLyAmThanh
     List<string> final_input_cutted = new List<string>();
     string[] outputTexts2;
     private int gender = 0;
+    private string apikey="";
     private string speed = "1.0";
     private string text = "";
     private string processMes = "";
     private int processNow = 0;
     private int processFull = 0;
     private Process ffplay, ffmpeg;
+    private int maxLenghtText = 500;
     private Thread ReadingThread, DownloadingThread;
     string path = Directory.GetCurrentDirectory();
-    public XuLyAmThanh(string _text, int _gender = 1, string _speed = "")
+    public XuLyAmThanh(string _text, int _gender = 1, string _speed = "",string _apikey="")
     {
         this.gender = _gender;
         this.text = _text;
         this.speed = _speed;
+        this.apikey = _apikey;
     }
     public void mainRun()
     {
@@ -256,10 +358,10 @@ public class XuLyAmThanh
     public void Down()
     {
         this.processMes = "Đang khởi động...";
-        //DeleteAllFile(path + "\\audio");
+        DeleteAllFile(path + "\\audio");
         this.processNow = 0;
         string fname;
-        if (text.Length > 2000)
+        if (text.Length > maxLenghtText)
         {
 
             linksOfM3u8.Clear();
@@ -272,7 +374,7 @@ public class XuLyAmThanh
             int maxdown = outputTexts.Count;
             for (int i = 0; i < maxdown; i++)
             {
-                fname =  DateTime.Now.ToString("yyMMddHHmmss");
+                fname = i.ToString();
                 this.processNow = (i + 1) * 100/ (maxdown + 1);
                 this.processMes = "Đang tải file -> " + fname + ".mp3...";
                 Thread.Sleep(2000);
@@ -286,7 +388,8 @@ public class XuLyAmThanh
         }
         else
         {
-            fname = DateTime.Now.ToString("yyMMddHHmmss");
+            //fname = DateTime.Now.ToString("yyMMddHHmmss");
+            fname = "output";
             this.processMes = "Đang tải file -> "+ fname + ".mp3...";
             DownFileM3U8toMP3(getTTS_URL(text), fname + ".mp3");
             this.processNow = 100;
@@ -311,7 +414,7 @@ public class XuLyAmThanh
     public void Read()
     {
         this.processMes = "Đang khởi động...";
-        if (text.Length > 2000)
+        if (text.Length > maxLenghtText)
         {
             linksOfM3u8.Clear();
 
@@ -462,7 +565,7 @@ public class XuLyAmThanh
     {
         File.WriteAllText(path + "\\zalo_tts\\output.txt", "");
         File.WriteAllText(path + "\\zalo_tts\\text.txt", _text);
-        File.WriteAllText(path + "\\zalo_tts\\setting.txt", gender + "|" + speed);
+        File.WriteAllText(path + "\\zalo_tts\\setting.txt", gender + "|" + speed+"|"+apikey);
         //var process = Process.Start(path + "\\zalo_tts\\zalo_tts.exe");
         string appPath = path + "\\zalo_tts\\zalo_tts.exe";
         Process ffmpeg = new Process
@@ -483,8 +586,13 @@ public class XuLyAmThanh
         ffmpeg.Start();
         ffmpeg.WaitForExit();
         string output = System.IO.File.ReadAllText(path + "\\zalo_tts\\output.txt");
+        if (output.Contains("API rate limit exceeded"))
+        {
+            MessageBox.Show("Bạn đã hết giới hạn sử dụng API Key, vui lòng đổi key khác hoặc liên hệ ZaloAI để được hỗ trợ.\nMã lỗi: "+output,"Lỗi");
+            System.Environment.Exit(1);
+        }
         var stuff = JObject.Parse(output);
-        if (stuff["data"]["url"].ToString().Contains("m3u8"))
+        if (stuff["data"]["url"].ToString().Contains("chunk"))
         {
             return stuff["data"]["url"].ToString();
         }
