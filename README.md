@@ -56,7 +56,7 @@ https://www.facebook.com/groups/j2team.community/posts/1549746548690793
 
 # Phi lợi nhận
 
-Đây là phần mềm miễn phí, mình không nhận được bất kỳ 1 đồng nào hỗ trợ từ Zalo nên nếu thấy hay bạn có thể donate để hỗ trợ dự án bằng cách nhấn vào nút xanh lá phía góc trên bên phải phần mềm để ủng hộ mình nhé.
+Đây là phần mềm miễn phí, mình không nhận được bất kỳ 1 đồng nào hỗ trợ từ Zalo nên nếu thấy hay bạn có thể donate để hỗ trợ mình 1 ly coffee bằng cách nhấn vào nút xanh lá phía góc trên bên phải phần mềm để ủng hộ mình nhé.
 
 https://github.com/phatjkk/DonateMe/blob/master/Information
 
