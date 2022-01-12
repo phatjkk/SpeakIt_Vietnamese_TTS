@@ -3,7 +3,7 @@ Vietnamese Text-to-Speech on Windows Project
 
 Là một phần mềm sử dụng ZaloAPI để chuyển văn bản sang giọng nói Tiếng Việt.
 
-#Hướng dẫn sử dụng
+# Hướng dẫn sử dụng
 
 Đầu tiên để sử dụng được, bạn cần có ZaloAI Key, mà để có ZaloAPI key bạn cần chọn mua những gói mà server Zalo hỗ trợ
 
@@ -38,7 +38,7 @@ https://dotnet.microsoft.com/en-us/download
 
 Sau khi cài đặt khởi động lại máy sẽ hết lỗi.
 
-#Video hướng dẫn:
+# Video hướng dẫn:
 
 https://www.youtube.com/watch?v=DquWRpjvNm0
 
