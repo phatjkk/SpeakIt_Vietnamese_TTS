@@ -183,11 +183,7 @@ namespace SpeakIt_
                 ThreadBackround.Start();
             }
         }
-        [DllImport("user32.dll")]
-        static extern Int32 SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
 
-        [DllImport("gdi32.dll")]
-        static extern IntPtr CreateRoundRectRgn(int x1, int y1, int x2, int y2, int cx, int cy);
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -203,8 +199,7 @@ namespace SpeakIt_
             }
             else
             {
-                IntPtr hwnd = new WindowInteropHelper(this).Handle;
-                SetWindowRgn(hwnd, CreateRoundRectRgn(0, 0, 697, 358, 15, 15), true);
+
                 _apikey.Text = System.IO.File.ReadAllText("APIKey.txt");
             }
             
